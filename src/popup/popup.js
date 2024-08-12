@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter, Routes, Route } from "react-router-dom";
+// import { HashRouter, Routes, Route } from "react-router-dom";
 import Transcript from "../pages/Transcript";
 import Summary from "../pages/Summary";
 import reportWebVitals from "../reportWebVitals";
@@ -34,10 +34,10 @@ function App() {
   </TabList>
   <TabPanels>
     <TabPanel>
-      <p>one!</p>
+        <Transcript/>
     </TabPanel>
     <TabPanel>
-      <p>two!</p>
+      <Summary/>
     </TabPanel>
   </TabPanels>
 </Tabs>
