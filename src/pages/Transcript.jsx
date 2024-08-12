@@ -1,11 +1,8 @@
-import React from 'react'
+import React from "react";
+import { Button } from "@chakra-ui/react";
 
 const Transcript = () => {
-  return (
-    <div>
-      Transcript
-    </div>
-  )
-}
+  return <><Button>Transcript</Button></>;
+};
 
-export default Transcript
+export default Transcript;
