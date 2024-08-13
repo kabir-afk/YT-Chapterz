@@ -1,7 +1,6 @@
 /*global chrome */
 import React,{useState} from "react";
 import { Button, Text , useClipboard } from "@chakra-ui/react";
-// import {decode} from 'html-entities';
 import { YoutubeTranscript } from "youtube-transcript";
 
 const Transcript = () => {
@@ -23,7 +22,7 @@ const Transcript = () => {
     transcript.forEach(element => {
       transcriptText += element.text;
     });
-    setValue(transcriptText);
+    setValue(transcriptText.replace('undefined','').replace('&amp;#39;',"'"));
     setIsFetched(true);
   }
   return (
