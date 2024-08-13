@@ -17,8 +17,10 @@
     "default_popup": "index.html"
   },
   "permissions": [
-    "storage",
-    "tabs"
+    "tabs",
+		"scripting",
+		"activeTab",
+		"storage"
   ],
   "host_permissions": [
     "https://www.youtube.com/*"
