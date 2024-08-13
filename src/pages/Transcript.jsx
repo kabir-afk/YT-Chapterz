@@ -1,11 +1,12 @@
 /*global chrome */
 import React, { useState, useEffect } from "react";
-import { Button, Text, useClipboard } from "@chakra-ui/react";
+import { Button, Text, useClipboard , Progress} from "@chakra-ui/react";
 import { YoutubeTranscript } from "youtube-transcript";
 import { generateKey } from "../keyGenerator";
 
 const Transcript = () => {
   const [isFetched, setIsFetched] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { onCopy, value, setValue, hasCopied } = useClipboard('');
   
   async function getCurrentTab() {
@@ -16,6 +17,7 @@ const Transcript = () => {
 
   async function getTranscript() {
     try {
+      setIsLoading(true)
       let tab = await getCurrentTab();
       let transcript = await YoutubeTranscript.fetchTranscript(tab.url);
       let transcriptText = transcript.map(element => element.text).join(' ');
@@ -24,6 +26,7 @@ const Transcript = () => {
       chrome.storage.local.set({ [key]: transcriptText });
 
       setValue(transcriptText.replace('undefined', '').replace('&amp;#39;', "'"));
+      setIsLoading(false);
       setIsFetched(true);
     } catch (error) {
       console.error('Error fetching transcript:', error);
@@ -54,6 +57,7 @@ const Transcript = () => {
   return (
     <>
       {!isFetched && <Button onClick={getTranscript}>Transcript</Button>}
+      {isLoading && <Progress size='xs' isIndeterminate />}
       {isFetched && <Button onClick={onCopy}>{hasCopied ? 'Copied!' : 'Copy'}</Button>}
       <Text>{value}</Text>
     </>
