@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "My Extension",
+  "name": "YT-Chapterz",
   "version": "1.0.0",
-  "description": "A simple Chrome extension with React.",
+	"author": "Kabir Singh",
+	"description": "This extension allows you to summarize a video into different chapters if not already present",
   "icons": {
     "16": "logo192.png",
     "48": "logo192.png",
@@ -12,6 +13,7 @@
     "service_worker": "./static/js/background.js"
   },
   "action": {
+    "default_title": "YT-Chapterz",
     "default_popup": "index.html"
   },
   "permissions": [
