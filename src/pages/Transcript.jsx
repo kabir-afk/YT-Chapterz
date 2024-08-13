@@ -1,11 +1,13 @@
 /*global chrome */
 import React,{useState} from "react";
-import { Button, Text } from "@chakra-ui/react";
+import { Button, Text , useClipboard } from "@chakra-ui/react";
+// import {decode} from 'html-entities';
 import { YoutubeTranscript } from "youtube-transcript";
 
 const Transcript = () => {
 
-  const [transcriptString,setTranscriptString] = useState('');
+  const [isFetched,setIsFetched] = useState(false);
+  const { onCopy, value, setValue, hasCopied } = useClipboard('');
 
   async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
@@ -21,12 +23,13 @@ const Transcript = () => {
     transcript.forEach(element => {
       transcriptText += element.text;
     });
-    setTranscriptString(transcriptText);
+    setValue(transcriptText);
+    setIsFetched(true);
   }
   return (
     <>
-      <Button onClick={getTranscript}>Transcript</Button>
-      <Text>{transcriptString}</Text>
+      {!isFetched && <Button onClick={getTranscript}>Transcript</Button>} {isFetched && <Button onClick={onCopy}>{hasCopied ? 'Copied!' : 'Copy'}</Button>}
+      <Text>{value}</Text>
     </>
   );
 };
