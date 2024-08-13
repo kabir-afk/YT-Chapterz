@@ -14,5 +14,11 @@
   "action": {
     "default_popup": "index.html"
   },
-  "permissions": ["storage", "tabs"]
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*"
+  ]
 }
