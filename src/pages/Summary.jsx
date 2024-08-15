@@ -148,7 +148,7 @@ const Summary = () => {
       {isFetched && (
         <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
       )}
-      <Accordion>{isSummary}</Accordion>
+      <Accordion allowMultiple>{isSummary}</Accordion>
     </>
   );
 };
