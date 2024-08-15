@@ -1,9 +1,11 @@
 /*global chrome */
 import React from "react";
 import {
+  AccordionButton,
+  AccordionItem,
+  AccordionPanel,
   Box,
   Button,
-  Heading,
   ListItem,
   UnorderedList,
 } from "@chakra-ui/react";
@@ -38,24 +40,29 @@ const Chapter = (props) => {
   }
   return (
     <>
-      <Box maxW="32rem">
-        <Heading as="h2" size="2xl" noOfLines={1}>
-          {title}
-        </Heading>
-        <UnorderedList>
-          {points.map((point, index) => (
-            <ListItem key={index}>{point}</ListItem>
-          ))}
-        </UnorderedList>
-        <Button
-          size="lg"
-          colorScheme="green"
-          mt="24px"
-          onClick={() => jumpToTimestamp(timestamp)}
-        >
-          {timestamp}
-        </Button>
-      </Box>
+      <AccordionItem>
+        <h2>
+          <AccordionButton>
+            <Box as="span" flex="1" textAlign="left">
+              {title}
+            </Box>
+            <Button
+              size="md"
+              colorScheme="green"
+              onClick={() => jumpToTimestamp(timestamp)}
+            >
+              {timestamp}
+            </Button>
+          </AccordionButton>
+        </h2>
+        <AccordionPanel>
+          <UnorderedList>
+            {points.map((point, index) => (
+              <ListItem key={index}>{point}</ListItem>
+            ))}
+          </UnorderedList>
+        </AccordionPanel>
+      </AccordionItem>
     </>
   );
 };
