@@ -1,11 +1,10 @@
 /*global chrome */
 import React, { useState, useEffect } from "react";
-import { Button, Text, useClipboard, Progress } from "@chakra-ui/react";
+import { Button, useClipboard, Progress, Accordion } from "@chakra-ui/react";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { YoutubeTranscript } from "youtube-transcript";
 import { generateKey } from "../keyGenerator";
 import Chapter from "./Chapter";
-// import { Chapter } from "./Chapter";
 
 const Summary = () => {
   const [isFetched, setIsFetched] = useState(false);
@@ -149,7 +148,7 @@ const Summary = () => {
       {isFetched && (
         <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
       )}
-      <Text>{isSummary}</Text>
+      <Accordion>{isSummary}</Accordion>
     </>
   );
 };
