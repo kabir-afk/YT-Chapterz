@@ -81,6 +81,18 @@ const Summary = () => {
     value = copyableSummaryArray.join("\n");
     setValue(value);
   }
+
+  function insertSummary(summary) {
+    const chapters = [];
+    summary.forEach((chapter) => {
+      const { title, points, timestamp } = chapter;
+      chapters.push(
+        <Chapter title={title} points={points} timestamp={timestamp}></Chapter>
+      );
+    });
+    setIsSummary(chapters);
+  }
+
   async function getSummary() {
     try {
       setIsLoading(true);
@@ -92,18 +104,7 @@ const Summary = () => {
       const key = generateKey("summary", tab.url, tab.id);
       chrome.storage.local.set({ [key]: summary });
 
-      const chapters = [];
-      summary.forEach((chapter) => {
-        const { title, points, timestamp } = chapter;
-        chapters.push(
-          <Chapter
-            title={title}
-            points={points}
-            timestamp={timestamp}
-          ></Chapter>
-        );
-      });
-      setIsSummary(chapters);
+      insertSummary(summary);
       parseToCopyableValue(summary);
       setIsLoading(false);
       setIsFetched(true);
@@ -122,18 +123,7 @@ const Summary = () => {
         chrome.storage.local.get(key, (items) => {
           if (items[key]) {
             setIsFetched(true);
-            const chapters = [];
-            items[key].forEach((chapter) => {
-              const { title, points, timestamp } = chapter;
-              chapters.push(
-                <Chapter
-                  title={title}
-                  points={points}
-                  timestamp={timestamp}
-                ></Chapter>
-              );
-            });
-            setIsSummary(chapters);
+            insertSummary(items[key]);
             parseToCopyableValue(items[key]);
           } else {
             setIsSummary([]);

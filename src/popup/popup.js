@@ -2,33 +2,36 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Transcript from "../pages/Transcript";
 import Summary from "../pages/Summary";
+import CustomTab from "../pages/CustomTab";
 import reportWebVitals from "../reportWebVitals";
 import {
   Tabs,
   TabList,
   TabPanels,
-  Tab,
   TabPanel,
   ChakraProvider,
+  Box,
 } from "@chakra-ui/react";
 
 function App() {
   return (
     <ChakraProvider>
-      <Tabs variant="soft-rounded" colorScheme="green">
-        <TabList>
-          <Tab>Transcript</Tab>
-          <Tab>Summary</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <Transcript />
-          </TabPanel>
-          <TabPanel>
-            <Summary />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <Box w={'300px'} maxW={'300px'} maxH={'300px'}overflow={"auto"}>
+        <Tabs isFitted>
+          <TabList>
+            <CustomTab tabName = {'Transcript'}/>
+            <CustomTab tabName = {'Summary'}/>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Transcript />
+            </TabPanel>
+            <TabPanel>
+              <Summary />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
     </ChakraProvider>
   );
 }
