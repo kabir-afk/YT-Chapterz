@@ -10,8 +10,7 @@ const Summary = () => {
   const [isFetched, setIsFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSummary, setIsSummary] = useState([]);
-  // const { onCopy, value, setValue, hasCopied } = useClipboard("");
-  const { onCopy, hasCopied } = useClipboard("");
+  let { onCopy, value, setValue, hasCopied } = useClipboard("");
 
   async function summarizeTranscript(transcript) {
     const genAI = new GoogleGenerativeAI(
@@ -73,20 +72,26 @@ const Summary = () => {
     let [tab] = await chrome.tabs.query(queryOptions);
     return tab;
   }
-
+  function parseToCopyableValue(summary) {
+    const copyableSummaryArray = summary.map((chapter) => {
+      const { title, points } = chapter;
+      const pointsString = points.map((point) => `  • ${point}`).join("\n");
+      return `${title}\n${pointsString}\n`;
+    });
+    value = copyableSummaryArray.join("\n");
+    setValue(value);
+  }
   async function getSummary() {
     try {
       setIsLoading(true);
       let tab = await getCurrentTab();
 
-      // Await the result of summarizeActiveTab to ensure it's resolved
       const summary = await summarizeActiveTab(tab.url);
       console.log(summary);
 
       const key = generateKey("summary", tab.url, tab.id);
       chrome.storage.local.set({ [key]: summary });
 
-      // After the summary is resolved, set the value in the state
       const chapters = [];
       summary.forEach((chapter) => {
         const { title, points, timestamp } = chapter;
@@ -99,6 +104,7 @@ const Summary = () => {
         );
       });
       setIsSummary(chapters);
+      parseToCopyableValue(summary);
       setIsLoading(false);
       setIsFetched(true);
     } catch (error) {
@@ -112,7 +118,6 @@ const Summary = () => {
       try {
         let tab = await getCurrentTab();
         const key = generateKey("summary", tab.url, tab.id);
-        console.log(key);
 
         chrome.storage.local.get(key, (items) => {
           if (items[key]) {
@@ -129,6 +134,7 @@ const Summary = () => {
               );
             });
             setIsSummary(chapters);
+            parseToCopyableValue(items[key]);
           } else {
             setIsSummary([]);
           }
@@ -139,14 +145,16 @@ const Summary = () => {
     }
 
     fetchStoredSummary();
-  }, []);
+  });
 
   return (
     <>
       {!isFetched && <Button onClick={getSummary}>Summary</Button>}
-      {isLoading && <Progress size="xs" isIndeterminate />}
+      {isLoading && <Progress size="xs" isIndeterminate marginTop={3} />}
       {isFetched && (
-        <Button onClick={onCopy}>{hasCopied ? "Copied!" : "Copy"}</Button>
+        <Button onClick={onCopy} mb={4}>
+          {hasCopied ? "Copied!" : "Copy"}
+        </Button>
       )}
       <Accordion allowMultiple>{isSummary}</Accordion>
     </>
