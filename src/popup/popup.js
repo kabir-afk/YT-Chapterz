@@ -7,18 +7,18 @@ import {
   Tabs,
   TabList,
   TabPanels,
-  Tab,
   TabPanel,
   ChakraProvider,
 } from "@chakra-ui/react";
+import CustomTab from "../pages/CustomTab";
 
 function App() {
   return (
     <ChakraProvider>
-      <Tabs variant="soft-rounded" colorScheme="green">
+      <Tabs isFitted>
         <TabList>
-          <Tab>Transcript</Tab>
-          <Tab>Summary</Tab>
+          <CustomTab tabName = {'Transcript'}/>
+          <CustomTab tabName = {'Summary'}/>
         </TabList>
         <TabPanels>
           <TabPanel>
