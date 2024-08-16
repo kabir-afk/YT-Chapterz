@@ -57,8 +57,8 @@ const Transcript = () => {
   return (
     <>
       {!isFetched && <Button onClick={getTranscript}>Transcript</Button>}
-      {isLoading && <Progress size='xs' isIndeterminate />}
-      {isFetched && <Button onClick={onCopy}>{hasCopied ? 'Copied!' : 'Copy'}</Button>}
+      {isLoading && <Progress size='xs' isIndeterminate marginTop={3}/>}
+      {isFetched && <Button onClick={onCopy} mb={4}>{hasCopied ? 'Copied!' : 'Copy'}</Button>}
       <Text>{value}</Text>
     </>
   );
