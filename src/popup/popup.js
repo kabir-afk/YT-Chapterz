@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import Transcript from "../pages/Transcript";
 import Summary from "../pages/Summary";
+import CustomTab from "../pages/CustomTab";
 import reportWebVitals from "../reportWebVitals";
 import {
   Tabs,
@@ -10,7 +11,6 @@ import {
   TabPanel,
   ChakraProvider,
 } from "@chakra-ui/react";
-import CustomTab from "../pages/CustomTab";
 
 function App() {
   return (
