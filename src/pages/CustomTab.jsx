@@ -5,7 +5,6 @@ const CustomTab = (props) => {
   return (
     <Tab
       sx={{
-        borderRadius: "5px",
         fontWeight: "600",
         _hover: {
           color: "white",
