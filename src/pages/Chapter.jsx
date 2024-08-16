@@ -21,7 +21,7 @@ const Chapter = (props) => {
       videoTime = minutes * 60 + seconds;
     } else {
       const [hours, minutes, seconds] = tsArray;
-      videoTime = hours * 60 + minutes * 60 + seconds;
+      videoTime = hours * 60 * 60 + minutes * 60 + seconds;
     }
     // Execute script to navigate to the specific timestamp
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
