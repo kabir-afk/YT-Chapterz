@@ -10,25 +10,28 @@ import {
   TabPanels,
   TabPanel,
   ChakraProvider,
+  Box,
 } from "@chakra-ui/react";
 
 function App() {
   return (
     <ChakraProvider>
-      <Tabs isFitted>
-        <TabList>
-          <CustomTab tabName = {'Transcript'}/>
-          <CustomTab tabName = {'Summary'}/>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <Transcript />
-          </TabPanel>
-          <TabPanel>
-            <Summary />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <Box w={'300px'} maxW={'300px'} maxH={'300px'}overflow={"auto"}>
+        <Tabs isFitted>
+          <TabList>
+            <CustomTab tabName = {'Transcript'}/>
+            <CustomTab tabName = {'Summary'}/>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Transcript />
+            </TabPanel>
+            <TabPanel>
+              <Summary />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </Box>
     </ChakraProvider>
   );
 }
