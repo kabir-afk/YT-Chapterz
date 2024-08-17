@@ -1,4 +1,4 @@
-import { CopyIcon } from "@chakra-ui/icons";
+import {  CheckCircleIcon, CopyIcon } from "@chakra-ui/icons";
 import { IconButton, useClipboard, useToast } from "@chakra-ui/react";
 import React from "react";
 
@@ -17,7 +17,8 @@ const CopyBtn = (props) => {
         containerStyle: {
          backgroundColor : 'blue',
          borderRadius : '5px',
-        }
+        },
+        icon: <CheckCircleIcon color="white.500" boxSize={3} marginTop={2}/>,
       });
     }
   }
