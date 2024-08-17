@@ -1,6 +1,15 @@
 /*global chrome */
 import React, { useState, useEffect } from "react";
-import { Button, useClipboard, Progress, Accordion } from "@chakra-ui/react";
+import {
+  Button,
+  useClipboard,
+  Progress,
+  Accordion,
+  IconButton,
+  Flex,
+  Spacer,
+} from "@chakra-ui/react";
+import { RepeatIcon } from "@chakra-ui/icons";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { YoutubeTranscript } from "youtube-transcript";
 import { generateKey } from "../keyGenerator";
@@ -142,9 +151,13 @@ const Summary = () => {
       {!isFetched && <Button onClick={getSummary}>Summary</Button>}
       {isLoading && <Progress size="xs" isIndeterminate marginTop={3} />}
       {isFetched && (
-        <Button onClick={onCopy} mb={4}>
-          {hasCopied ? "Copied!" : "Copy"}
-        </Button>
+        <Flex>
+          <Button onClick={onCopy} mb={4}>
+            {hasCopied ? "Copied!" : "Copy"}
+          </Button>
+          <Spacer/>
+          <IconButton aria-label='Refresh Summary' icon={<RepeatIcon />} onClick={getSummary}/>
+        </Flex>
       )}
       <Accordion allowMultiple>{isSummary}</Accordion>
     </>
