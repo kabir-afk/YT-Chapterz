@@ -3,11 +3,12 @@ import React, { useState, useEffect } from "react";
 import { Button, Text, useClipboard , Progress} from "@chakra-ui/react";
 import { YoutubeTranscript } from "youtube-transcript";
 import { generateKey } from "../keyGenerator";
+import CopyBtn from "./CopyBtn";
 
 const Transcript = () => {
   const [isFetched, setIsFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { onCopy, value, setValue, hasCopied } = useClipboard('');
+  const {  value, setValue } = useClipboard('');
   
   async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
@@ -58,7 +59,7 @@ const Transcript = () => {
     <>
       {!isFetched && <Button onClick={getTranscript}>Transcript</Button>}
       {isLoading && <Progress size='xs' isIndeterminate marginTop={3}/>}
-      {isFetched && <Button onClick={onCopy} mb={4}>{hasCopied ? 'Copied!' : 'Copy'}</Button>}
+      {isFetched && <CopyBtn title={'Transcript'} valueToBeCopied={value}/>}
       <Text>{value}</Text>
     </>
   );
