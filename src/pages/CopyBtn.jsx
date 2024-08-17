@@ -11,10 +11,13 @@ const CopyBtn = (props) => {
     if (!hasCopied) {
       toast({
         title: `${title} copied`,
-        status: "success",
         position: "top",
         duration: 1000,
         isClosable: true,
+        containerStyle: {
+         backgroundColor : 'blue',
+         borderRadius : '5px',
+        }
       });
     }
   }
