@@ -149,7 +149,7 @@ const Summary = () => {
   return (
     <>
       {!isFetched && <Button onClick={getSummary}>Summary</Button>}
-      {isLoading && <Progress size="xs" isIndeterminate marginTop={3} />}
+      {isLoading && <Progress size="xs" isIndeterminate my={3} />}
       {isFetched && (
         <Flex>
           <Button onClick={onCopy} mb={4}>
