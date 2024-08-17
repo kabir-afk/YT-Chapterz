@@ -14,12 +14,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { YoutubeTranscript } from "youtube-transcript";
 import { generateKey } from "../keyGenerator";
 import Chapter from "./Chapter";
+import CopyBtn from "./CopyBtn";
 
 const Summary = () => {
   const [isFetched, setIsFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSummary, setIsSummary] = useState([]);
-  let { onCopy, value, setValue, hasCopied } = useClipboard("");
+  let { value, setValue} = useClipboard("");
 
   async function summarizeTranscript(transcript) {
     const genAI = new GoogleGenerativeAI(
@@ -152,11 +153,13 @@ const Summary = () => {
       {isLoading && <Progress size="xs" isIndeterminate my={3} />}
       {isFetched && (
         <Flex>
-          <Button onClick={onCopy} mb={4}>
-            {hasCopied ? "Copied!" : "Copy"}
-          </Button>
-          <Spacer/>
-          <IconButton aria-label='Refresh Summary' icon={<RepeatIcon />} onClick={getSummary}/>
+          <CopyBtn title={'Summary'} valueToBeCopied={value}/>
+          <Spacer />
+          <IconButton
+            aria-label="Refresh Summary"
+            icon={<RepeatIcon />}
+            onClick={getSummary}
+          />
         </Flex>
       )}
       <Accordion allowMultiple>{isSummary}</Accordion>
