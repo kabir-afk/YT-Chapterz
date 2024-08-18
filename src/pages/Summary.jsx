@@ -150,7 +150,7 @@ const Summary = () => {
   return (
     <>
       {!isFetched && <Button onClick={getSummary}>Summary</Button>}
-      {isLoading && <Progress size="xs" isIndeterminate my={3} />}
+      {isLoading && <Progress size="xs" isIndeterminate mt={3} />}
       {isFetched && (
         <Flex>
           <CopyBtn title={'Summary'} valueToBeCopied={value}/>
