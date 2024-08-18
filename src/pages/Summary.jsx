@@ -134,6 +134,18 @@ const Summary = () => {
           duration: 1000,
           isClosable: true,
         });
+      } else if (error.message.includes("[GoogleGenerativeAI Error]")) {
+        const errorMessage = error.message.replace(
+          "[GoogleGenerativeAI Error]:",
+          ""
+        );
+        toast({
+          title: errorMessage,
+          position: "top",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
       }
     }
   }
