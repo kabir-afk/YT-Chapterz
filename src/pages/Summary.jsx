@@ -8,6 +8,7 @@ import {
   IconButton,
   Flex,
   Spacer,
+  useToast,
 } from "@chakra-ui/react";
 import { RepeatIcon } from "@chakra-ui/icons";
 import { GoogleGenerativeAI } from "@google/generative-ai";
@@ -20,7 +21,8 @@ const Summary = () => {
   const [isFetched, setIsFetched] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSummary, setIsSummary] = useState([]);
-  let { value, setValue} = useClipboard("");
+  let { value, setValue } = useClipboard("");
+  const toast = useToast();
 
   async function summarizeTranscript(transcript) {
     const genAI = new GoogleGenerativeAI(
@@ -121,6 +123,30 @@ const Summary = () => {
     } catch (error) {
       console.error("Error fetching summary:", error);
       setIsLoading(false);
+      if (error.message.includes("[YoutubeTranscript]")) {
+        const regex =
+          /\[.*?\]\s🚨\s(.*)\s\(https:\/\/www\.youtube\.com\/watch\?v=[\w-]+\)/;
+        const errorMessage = error.message.replace(regex, "$1");
+        toast({
+          title: errorMessage,
+          position: "top",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+      } else if (error.message.includes("[GoogleGenerativeAI Error]")) {
+        const errorMessage = error.message.replace(
+          "[GoogleGenerativeAI Error]:",
+          ""
+        );
+        toast({
+          title: errorMessage,
+          position: "top",
+          status: "error",
+          duration: 1000,
+          isClosable: true,
+        });
+      }
     }
   }
 
@@ -150,10 +176,10 @@ const Summary = () => {
   return (
     <>
       {!isFetched && <Button onClick={getSummary}>Summary</Button>}
-      {isLoading && <Progress size="xs" isIndeterminate my={3} />}
+      {isLoading && <Progress size="xs" isIndeterminate mt={3} />}
       {isFetched && (
-        <Flex>
-          <CopyBtn title={'Summary'} valueToBeCopied={value}/>
+        <Flex mt={3}>
+          <CopyBtn title={"Summary"} valueToBeCopied={value} />
           <Spacer />
           <IconButton
             aria-label="Refresh Summary"
